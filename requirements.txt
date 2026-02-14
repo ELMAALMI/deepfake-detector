@@ -1,0 +1,27 @@
+# Deep Learning & Computer Vision
+tensorflow>=2.12.1
+keras>=2.13.1
+opencv-python>=4.8.1.78
+mediapipe>=0.10.0
+
+# Data Science
+numpy>=1.23.0
+pandas>=1.5.0
+scikit-learn>=1.2.0
+
+# Visualization
+matplotlib>=3.6.0
+seaborn>=0.12.0
+
+# Utilities
+pyyaml>=6.0
+tqdm>=4.64.0
+click>=8.1.0
+
+# Testing
+pytest>=7.4.0
+pytest-cov>=4.1.0
+
+# Jupyter
+jupyter>=1.0.0
+ipykernel>=6.25.0

@@ -1,0 +1,82 @@
+# Deepfake Detector Configuration
+
+# Model Parameters
+model:
+  architecture: "xception"
+  input_size: [299, 299, 3]
+  pretrained_weights: "imagenet"
+  dropout_rate: 0.5
+  dense_units: 512
+
+# Training Parameters
+training:
+  epochs: 50
+  batch_size: 32
+  learning_rate: 0.0001
+  validation_split: 0.2
+  early_stopping_patience: 10
+  reduce_lr_patience: 5
+  reduce_lr_factor: 0.5
+  min_learning_rate: 0.000001
+  class_weights:
+    real: 1.0
+    fake: 1.0
+
+# Detection Parameters
+detection:
+  confidence_threshold: 0.5
+  frame_skip: 5  # Process every Nth frame
+  aggregation_method: "weighted_average"  # Options: weighted_average, majority_vote, max_confidence
+  min_face_size: 30
+  face_detection_confidence: 0.5
+
+# Preprocessing
+preprocessing:
+  normalization: "standard"  # Options: standard, minmax
+  augmentation:
+    enabled: true
+    horizontal_flip: true
+    rotation_range: 15
+    brightness_range: [0.8, 1.2]
+    zoom_range: 0.1
+    gaussian_noise_std: 0.01
+
+# Paths
+paths:
+  model_dir: "models"
+  data_dir: "data"
+  output_dir: "outputs"
+  log_dir: "logs"
+  tensorboard_dir: "tensorboard"
+
+# Face Detection
+face_detection:
+  method: "mediapipe"  # Options: mediapipe, opencv_dnn
+  opencv_dnn_model: "deploy.prototxt"
+  opencv_dnn_weights: "res10_300x300_ssd_iter_140000.caffemodel"
+  mediapipe_min_detection_confidence: 0.5
+  mediapipe_model_selection: 0  # 0 for short-range, 1 for full-range
+
+# Logging
+logging:
+  level: "INFO"  # Options: DEBUG, INFO, WARNING, ERROR, CRITICAL
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  file_logging: true
+
+# Real-time Detection
+realtime:
+  camera_id: 0
+  display_fps: true
+  display_confidence: true
+  box_color_real: [0, 255, 0]  # Green in BGR
+  box_color_fake: [0, 0, 255]  # Red in BGR
+  box_thickness: 2
+  font_scale: 0.7
+
+# Visualization
+visualization:
+  grad_cam_layer: "block14_sepconv2_act"  # Last conv layer for Xception
+  heatmap_alpha: 0.4
+  colormap: "jet"
+  plot_style: "seaborn"
+  figure_dpi: 100
