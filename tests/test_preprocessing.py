@@ -192,8 +192,8 @@ def test_preprocess_grayscale_image():
         processed = preprocessor.preprocess_image(image_gray)
         # If successful, check output shape
         assert len(processed.shape) == 3
-    except:
-        # Or it may raise an error, which is also acceptable
+    except Exception:
+        # If it raises an error, that's also acceptable
         pass
 
 

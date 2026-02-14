@@ -21,6 +21,10 @@ from src.utils import get_video_info, create_video_writer, ensure_dir
 
 logger = logging.getLogger("deepfake_detector.video_analyzer")
 
+# Constants for majority vote aggregation
+DEFAULT_FAKE_PROBABILITY = 0.7  # Default probability when fake count > real count
+DEFAULT_REAL_PROBABILITY = 0.3  # Default probability when real count > fake count
+
 
 class VideoAnalyzer:
     """Video analysis class for deepfake detection."""
@@ -199,9 +203,9 @@ class VideoAnalyzer:
             real_count = labels.count('REAL')
             
             if fake_count > real_count:
-                aggregated_prob = 0.7  # Default high probability for fake
+                aggregated_prob = DEFAULT_FAKE_PROBABILITY
             else:
-                aggregated_prob = 0.3  # Default low probability for real
+                aggregated_prob = DEFAULT_REAL_PROBABILITY
         
         elif self.aggregation_method == "max_confidence":
             # Use prediction with maximum confidence

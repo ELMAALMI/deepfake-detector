@@ -88,15 +88,19 @@ class DataGenerator(keras.utils.Sequence):
                     batch_images.append(processed)
                 else:
                     logger.warning(f"Failed to load image: {path}")
-                    # Use a blank image as fallback
-                    blank = np.zeros((*self.preprocessor.target_size, 3), dtype=np.float32)
-                    batch_images.append(blank)
+                    # Skip this image rather than using blank
+                    continue
             except Exception as e:
                 logger.error(f"Error loading image {path}: {e}")
-                blank = np.zeros((*self.preprocessor.target_size, 3), dtype=np.float32)
-                batch_images.append(blank)
+                continue
         
-        return np.array(batch_images), np.array(batch_labels, dtype=np.float32)
+        # If no valid images, return empty batch
+        if len(batch_images) == 0:
+            logger.warning("No valid images in batch")
+            blank = np.zeros((1, *self.preprocessor.target_size, 3), dtype=np.float32)
+            return blank, np.array([0], dtype=np.float32)
+        
+        return np.array(batch_images), np.array([self.labels[i] for i in batch_indexes[:len(batch_images)]], dtype=np.float32)
     
     def on_epoch_end(self):
         """Called at the end of each epoch."""

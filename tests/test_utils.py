@@ -148,7 +148,7 @@ def test_format_time():
     assert format_time(45) == "45s"
     assert format_time(90) == "1m 30s"
     assert format_time(3665) == "1h 1m 5s"
-    assert format_time(7200) == "2h 0s"  # 0 minutes are skipped
+    assert format_time(7200) == "2h 0s"  # Function skips zero minutes
 
 
 if __name__ == "__main__":
