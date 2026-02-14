@@ -1,7 +1,7 @@
 # Deep Learning & Computer Vision
-tensorflow>=2.10.0
-keras>=2.10.0
-opencv-python>=4.8.0
+tensorflow>=2.12.1
+keras>=2.13.1
+opencv-python>=4.8.1.78
 mediapipe>=0.10.0
 
 # Data Science
